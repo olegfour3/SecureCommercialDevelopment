@@ -1,6 +1,6 @@
 from flask import request, Flask
 import crypt_controller
-from entity import test_connect_to_db
+from db_entity import test_connect_to_db
 
 # starting the app
 app = Flask("Safe Enterprise Development")

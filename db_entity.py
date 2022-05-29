@@ -40,7 +40,7 @@ def test_connect_to_db():
         return True
 
 
-def db_request(request_text: str, return_all=True):
+def request(request_text: str, return_all=True):
     try:
         connection = connect_to_db()
         # connection.autocommit = True
