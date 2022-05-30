@@ -1,4 +1,4 @@
-# Safe enterprise coding
+# Secure Commercial Development
 ### API service in Python for providing customers with subscription access to ready-made *"pieces"* of [1С](https://1c.ru/) code that implement complex tasks.
 ### API сервис на Python для предоставления клиентам доступа через подписку к готовым *"кускам"* кода [1С](https://1c.ru/), реализующим конкретные задачи.
 ___
