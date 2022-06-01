@@ -1,6 +1,6 @@
 from cryptography.fernet import Fernet
 
-#key = "qY9DQub0XejtqQm7uC8_gONuhDNqmgnNWdzQtwII5OA="
+# key = "qY9DQub0XejtqQm7uC8_gONuhDNqmgnNWdzQtwII5OA="
 
 
 def encode(key, data):

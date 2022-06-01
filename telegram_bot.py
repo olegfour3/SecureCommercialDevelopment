@@ -1,4 +1,3 @@
-import os
 import aiogram.utils.markdown as md
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -9,10 +8,9 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.utils import executor
 import asyncio
 import aioschedule
+from config import BOT_TOKEN, BOT_PASSWORD
 
 
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-BOT_PASSWORD = 'qwer123'
 users_messages = {}
 
 bot = Bot(token=BOT_TOKEN)
@@ -21,10 +19,10 @@ dp = Dispatcher(bot, storage=storage)
 
 if __name__ == "__main__":
     try:
-        print('[INFO] Telegram bot launched')
+        print('\n[INFO] Telegram bot launched\n')
         executor.start_polling(dp)
     except Exception as _ex:
-        print('[ERR] Telegram bot startup error:\n', _ex)
+        print('\n[ERR] Telegram bot startup error:\n', _ex)
 
 
 # keyboards
@@ -147,10 +145,10 @@ async def subscriptions(message: types.Message):
 def start_bot():
     if BOT_TOKEN is not None:
         try:
-            print('[INFO] Telegram bot launched')
+            print('\n[INFO] Telegram bot launched\n')
             executor.start_polling(dp)  # on_startup=on_startup
         except Exception as _ex:
-            print('[ERR] Telegram bot startup error:\n', _ex)
+            print('\n[ERR] Telegram bot startup error:\n', _ex)
 
 
 async def add_msg_to_list(uid: int, msg_id: int):
@@ -165,13 +163,13 @@ async def on_startup(_):
 
 
 async def delete_all_messages():
-    deletedUsers = []
+    deleted_users = []
     for user_id in users_messages.keys():
         for message_id in users_messages[user_id]:
             await bot.delete_message(chat_id=user_id, message_id=message_id)
-        deletedUsers.append(user_id)
+        deleted_users.append(user_id)
 
-    for user_id in deletedUsers:
+    for user_id in deleted_users:
         users_messages.pop(user_id)
 
 
