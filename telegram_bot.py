@@ -11,8 +11,6 @@ import aioschedule
 from config import BOT_TOKEN, BOT_PASSWORD
 
 
-users_messages = {}
-
 bot = Bot(token=BOT_TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
@@ -82,7 +80,6 @@ async def cmd_start(message: types.Message):
 @dp.message_handler(state='*', commands='cancel')
 @dp.message_handler(Text(equals='cancel', ignore_case=True), state='*')
 async def cancel_handler(message: types.Message, state: FSMContext):
-    await add_msg_to_list(message.chat.id, message.message_id)
     """
     Allow user to cancel any action
     """
@@ -105,7 +102,6 @@ async def process_gender_invalid(message: types.Message):
 
 @dp.message_handler(state=Form.sign_in)
 async def process_name(message: types.Message, state: FSMContext):
-    await add_msg_to_list(message.chat.id, message.message_id)
     async with state.proxy() as data:
         data['password'] = message.text
 
@@ -119,25 +115,21 @@ async def process_name(message: types.Message, state: FSMContext):
 # MAIN MENU
 @dp.message_handler(Text(equals='◀️ Главное меню'))
 async def main(message: types.Message):
-    await add_msg_to_list(message.chat.id, message.message_id)
     await message.answer('◀️ Главное меню', reply_markup=MainMenu)
 
 
 @dp.message_handler(Text(equals='🛄 Клиенты'))
 async def clients(message: types.Message):
-    await add_msg_to_list(message.chat.id, message.message_id)
     await message.answer('🛄 Клиенты', reply_markup=ClientsMenu)
 
 
 @dp.message_handler(Text(equals='😐 Пользователи'))
 async def users(message: types.Message):
-    await add_msg_to_list(message.chat.id, message.message_id)
     await message.answer('😐 Пользователи', reply_markup=UsersMenu)
 
 
 @dp.message_handler(Text(equals='💲 Подписки клиентов'))
 async def subscriptions(message: types.Message):
-    await add_msg_to_list(message.chat.id, message.message_id)
     await message.answer('💲 Подписки клиентов', reply_markup=SubsMenu)
 
 
@@ -162,19 +154,12 @@ async def on_startup(_):
     asyncio.create_task(scheduler())
 
 
-async def delete_all_messages():
-    deleted_users = []
-    for user_id in users_messages.keys():
-        for message_id in users_messages[user_id]:
-            await bot.delete_message(chat_id=user_id, message_id=message_id)
-        deleted_users.append(user_id)
-
-    for user_id in deleted_users:
-        users_messages.pop(user_id)
+async def do_something():
+    pass
 
 
 async def scheduler():
-    aioschedule.every().day.at("2:50").do(delete_all_messages)
+    aioschedule.every().day.at("2:50").do(do_something)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(0)
