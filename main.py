@@ -1,27 +1,20 @@
-from flask import request, Flask
-import crypt_controller
+import threading
 from db_entity import test_connect_to_db
-
-# starting the app
-app = Flask("Safe Enterprise Development")
-if not test_connect_to_db():
-    print("[INFO] App stopped")
-    exit()
-print("[INFO] App run successful")
+from api_service import start_api_service
+from telegram_bot import start_bot, scheduler
 
 
-@app.route('/decode', methods=['POST'])
-def decode():
-    request_data = request.get_json()
-    data_text = crypt_controller.decode(request_data["key"], request_data["data"])
-    return data_text
+if __name__ == "__main__":
+    api_thread = threading.Thread(target=start_api_service)
+    try:
+        test_connect_to_db()
+        scheduler()
+        api_thread.start()
+        start_bot()
+    except Exception as _ex:
+        print('[ERR] App launch error:\n', _ex)
+        exit()
 
-
-@app.route('/encode', methods=['POST'])
-def encode():
-    request_data = request.get_json()
-    data_text = crypt_controller.encode(request_data["key"], request_data["data"])
-    return data_text
 
 
 

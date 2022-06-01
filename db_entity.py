@@ -1,7 +1,7 @@
 from config import host_db, port_db, user_db, password_db, db_name
 import psycopg2
 
-postgresql_error_sample = "[INFO] Error while working with PostgreSQL:\n"
+postgresql_error_sample = "[ERR] Error while working with PostgreSQL:\n"
 
 
 def connect_to_db():

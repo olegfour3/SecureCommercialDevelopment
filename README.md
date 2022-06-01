@@ -11,14 +11,13 @@ ___
 ___
 
 
-### Image 1
-![Image alt](https://github.com/olegfour3/olegfour3.github.io/blob/master/Screenshot_1.png)
+### Работа бота
 
-### Image 2
-![Image alt](https://github.com/olegfour3/olegfour3.github.io/blob/master/Screenshot_2.png)
+![bot working 1](scr/bot_working_1.png) 
 
-### Image 3
-![Image alt](https://github.com/olegfour3/olegfour3.github.io/blob/master/Screenshot_3.png)
+![bot working 2](scr/bot_working_2.png)
+
+![bot working 3](scr/bot_working_3.png)
 
 ---
 ### Первоначальная настройка приложения
@@ -31,5 +30,6 @@ ___
    ```
    
    ```
+   
 4) загрузите тестовую конфигурацию в 1С (не поставку)
 5) 
