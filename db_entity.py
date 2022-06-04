@@ -1,4 +1,4 @@
-from config import host_db, port_db, user_db, password_db, db_name
+from config import DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
 import psycopg2
 
 postgresql_error_sample = "[ERR] Error while working with PostgreSQL:\n"
@@ -8,11 +8,11 @@ def connect_to_db():
     try:
         # connect to database
         connection = psycopg2.connect(
-            host=host_db,
-            port=port_db,
-            database=db_name,
-            user=user_db,
-            password=password_db
+            host=DB_HOST,
+            port=DB_PORT,
+            database=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD
         )
         # connection.autocommit = True
         print("[INFO] Connection to PostgreSQL successful")
@@ -41,18 +41,17 @@ def test_connect_to_db():
 
 
 def request(request_text: str, return_all=True):
+    data = []
     try:
         connection = connect_to_db()
-        # connection.autocommit = True
 
         if connection is None:
             return None
-        # the cursor for performing database operations
+
         with connection.cursor() as cursor:
             cursor.execute(
                 request_text
             )
-            # cursor = connection.cursor()
             if return_all:
                 data = cursor.fetchall()
             else:
@@ -69,3 +68,27 @@ def request(request_text: str, return_all=True):
         return data
 
 
+def insert_delete(delete_text: str):
+    data = [False, '']
+    try:
+        connection = connect_to_db()
+        connection.autocommit = True
+
+        if connection is None:
+            return False
+        # the cursor for performing database operations
+        with connection.cursor() as cursor:
+            cursor.execute(
+                delete_text
+            )
+        data = [True, 'Операция успешно завершена']
+
+    except Exception as _ex:
+        print(postgresql_error_sample, _ex)
+        data = [False, 'Ошибка при опреции. :c\nОбратитесь к администратору!']
+    finally:
+        # close connection
+        if connection:
+            connection.close()
+            print("[INFO] PostgreSQL connection closed")
+        return data
