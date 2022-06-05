@@ -33,7 +33,19 @@ def create_new_client(client_name: str):
     return db.create_new_client(client_name)
 
 
+def change_client_activity(client_id: str):
+    return db.change_client_activity(client_id)
+
+
+def change_client_key(client_id: str):
+    return db.change_client_key(client_id)
+
+
 # USERS
+
+
+def get_user_info(user_id: str):
+    return db.get_user_info(user_id)
 
 
 def get_all_users():
@@ -64,3 +76,15 @@ def user_already_exist(user_id: str):
 
 def create_new_user(user_id: str, user_name: str):
     return db.create_new_user(user_id, user_name)
+
+
+def change_user_telegram_access(user_id: str):
+    return db.change_user_telegram_access(user_id)
+
+
+def change_user_key(user_id: str):
+    return db.change_user_key(user_id)
+
+
+def user_telegram_access(user_id: str):
+    return db.user_telegram_access(user_id)

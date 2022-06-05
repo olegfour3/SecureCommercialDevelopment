@@ -9,4 +9,3 @@ DB_NAME = "safe_code"
 
 # Telegram bot
 BOT_TOKEN = os.getenv('BOT_TOKEN')
-BOT_PASSWORD = 'qwer123'

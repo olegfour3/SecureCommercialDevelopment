@@ -15,7 +15,6 @@ def connect_to_db():
             password=DB_PASSWORD
         )
         # connection.autocommit = True
-        print("[INFO] Connection to PostgreSQL successful")
 
     except Exception as _ex:
         print(postgresql_error_sample, _ex)
@@ -64,7 +63,6 @@ def request(request_text: str, return_all=True):
         # close connection
         if connection:
             connection.close()
-            print("[INFO] PostgreSQL connection closed")
         return data
 
 
@@ -85,10 +83,9 @@ def insert_delete(delete_text: str):
 
     except Exception as _ex:
         print(postgresql_error_sample, _ex)
-        data = [False, 'Ошибка при опреции. :c\nОбратитесь к администратору!']
+        data = [False, 'Ошибка при опреции :c\nОбратитесь к администратору!']
     finally:
         # close connection
         if connection:
             connection.close()
-            print("[INFO] PostgreSQL connection closed")
         return data
